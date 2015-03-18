@@ -11,5 +11,9 @@ openldap:
   build: openldap
   ports:
    - "389:389"
-#fusiondirectory:
-#  build: fusiondirectory
+fusiondirectory:
+  build: fusiondirectory
+  volumes:
+    - fusiondirectory/config/sites-enabled:/etc/apache2/sites-enabled
+  ports:
+   - "8080:80"
