@@ -1,0 +1,17 @@
+nginx:
+  build: nginx
+  links:
+    - openldap
+  ports:
+    - "80:80"
+  volumes:
+    - /nginx_conf:config/nginx
+openldap:
+  build: openldap
+  ports:
+   - "389:389"
+  volumes:
+    - /etc/ldap:config/ldap
+    - /var/lib/ldap:data/ldap
+#fusiondirectory:
+#  build: fusiondirectory
