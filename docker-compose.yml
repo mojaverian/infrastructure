@@ -2,8 +2,11 @@ nginx:
     build: nginx
     links:
         - fusiondirectory
+    volumes_from:
+        - gitlab
     ports:
         - "80:80"
+        - "8080:8080"
     volumes:
         - nginx/config/sites-enabled:/etc/nginx/sites-enabled
         - nginx/data/www:/var/www
@@ -30,3 +33,13 @@ redis:
         - redis/config/:/redis_conf
     ports:
         - "127.0.0.1:6379:6379"
+gitlab:
+    build: gitlab
+    volumes:
+        - gitlab/config/:/gitlab_config
+        - /home/git/gitlab/public
+        - /home/git/gitlab/tmp/sockets/
+    links:
+        - openldap
+        - postgres
+        - redis

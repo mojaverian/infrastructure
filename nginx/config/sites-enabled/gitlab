@@ -1,0 +1,61 @@
+# vim: ft=conf
+
+upstream gitlab {
+  server unix:/home/git/gitlab/tmp/sockets/gitlab.socket fail_timeout=0;
+}
+
+server {
+  listen 0.0.0.0:8080 default_server;
+  listen [::]:8080 default_server;
+
+  server_name localhost;
+  server_tokens off;
+
+  root /home/git/gitlab/public;
+
+  client_max_body_size 20m;
+
+  access_log /var/log/nginx/gitlab_access.log;
+  error_log /var/log/nginx/gitlab_error.log;
+
+  location / {
+    try_files $uri $uri/index.html $uri.html @gitlab;
+  }
+
+  location /uploads/ {
+    proxy_read_timeout 300;
+    proxy_connect_timeout 300;
+    proxy_redirect off;
+
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Frame-Options SAMEORIGIN;
+
+    proxy_pass http://gitlab;
+  }
+
+  location @gitlab {
+    proxy_read_timeout 300;
+    proxy_connect_timeout 300;
+    proxy_redirect off;
+
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Frame-Options SAMEORIGIN;
+
+    proxy_pass http://gitlab;
+  }
+
+  location ~ ^/(assets)/ {
+    root /home/git/gitlab/public;
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+  }
+
+  error_page 502 /502.html;
+}

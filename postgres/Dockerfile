@@ -8,7 +8,10 @@ RUN apt-get update && \
 USER postgres
 
 RUN /etc/init.d/postgresql start && \
-    psql --command "CREATE USER admin WITH SUPERUSER PASSWORD 'changeme';"
+    psql -c "CREATE USER admin WITH SUPERUSER PASSWORD 'changeme';" && \
+    # don't know how to do this in the gitlab docker build so let's do it here
+    psql -c "CREATE USER git CREATEDB PASSWORD 'changeme'" && \
+    psql -c "CREATE DATABASE gitlabhq_production OWNER git;"
 
 RUN echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
