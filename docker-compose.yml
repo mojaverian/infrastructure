@@ -19,3 +19,7 @@ fusiondirectory:
         - fusiondirectory/config/sites-enabled:/etc/apache2/sites-enabled
     ports:
         - "127.0.0.1:8080:80"
+postgres:
+    build: postgres
+    ports:
+        - "127.0.0.1:5432:5432"

@@ -16,3 +16,9 @@ LDAP
     base: dc=koda,dc=re
     user: cn=admin,dc=koda,dc=re
     pass: changeme
+
+Postgresql
+
+    host: postgres
+    user: admin
+    pass: changeme
