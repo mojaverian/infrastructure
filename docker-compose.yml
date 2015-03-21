@@ -1,19 +1,21 @@
 nginx:
-  build: nginx
-  links:
-    - openldap
-  ports:
-    - "80:80"
-  volumes:
-    - nginx/config/sites-enabled:/etc/nginx/sites-enabled
-    - nginx/data/www:/var/www
+    build: nginx
+    links:
+        - fusiondirectory
+    ports:
+        - "80:80"
+    volumes:
+        - nginx/config/sites-enabled:/etc/nginx/sites-enabled
+        - nginx/data/www:/var/www
 openldap:
-  build: openldap
-  ports:
-   - "389:389"
+    build: openldap
+    ports:
+        - "127.0.0.1:389:389"
 fusiondirectory:
-  build: fusiondirectory
-  volumes:
-    - fusiondirectory/config/sites-enabled:/etc/apache2/sites-enabled
-  ports:
-   - "8080:80"
+    build: fusiondirectory
+    links:
+        - openldap
+    volumes:
+        - fusiondirectory/config/sites-enabled:/etc/apache2/sites-enabled
+    ports:
+        - "127.0.0.1:8080:80"
