@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y --force-yes php-mdb2 fusiondirectory
 
-COPY config/fusiondirectory.conf /etc/fusiondirectory/fusiondirectory.conf
+COPY config/fusiondirectory/fusiondirectory.conf /etc/fusiondirectory/fusiondirectory.conf
 
 RUN yes Yes | fusiondirectory-setup --check-config
 

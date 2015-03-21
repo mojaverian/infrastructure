@@ -17,6 +17,7 @@ fusiondirectory:
         - openldap
     volumes:
         - fusiondirectory/config/sites-enabled:/etc/apache2/sites-enabled
+        - fusiondirectory/config/fusiondirectory:/etc/fusiondirectory
     ports:
         - "127.0.0.1:8080:80"
 postgres:
