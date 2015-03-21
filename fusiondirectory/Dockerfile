@@ -14,8 +14,8 @@ RUN apt-get update && \
 
 COPY config/fusiondirectory.conf /etc/fusiondirectory/fusiondirectory.conf
 
-RUN fusiondirectory-setup --check-config --yes
+RUN yes Yes | fusiondirectory-setup --check-config
 
-COPY start_apache.sh /start_apache.sh
+COPY start.sh /start.sh
 
-ENTRYPOINT ["/start_apache.sh"]
+ENTRYPOINT ["/start.sh"]

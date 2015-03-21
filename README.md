@@ -1,8 +1,12 @@
-Use
----
+How to use
+----------
 
     # docker-compose up
 
+Then you need to do some manual configuration steps
+
+    # docker exec -it infrastructure_fusiondirectory_1 /bin/bash
+    fusiondirectory # fusiondirectory-setup --check-ldap
 
 ### Credentials
 
