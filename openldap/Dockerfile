@@ -12,12 +12,12 @@ RUN echo "slapd slapd/internal/adminpw password changeme" | debconf-set-selectio
 
 RUN apt-get update && \
     apt-get install -y software-properties-common gnupg && \
-    #gpg --keyserver subkeys.pgp.net --recv-keys E184859262B4981F && \
-    #gpg -a --export E184859262B4981F | sudo apt-key add - && \
+    gpg --keyserver keys.gnupg.net --recv-keys E184859262B4981F && \
+    gpg -a --export E184859262B4981F | apt-key add - && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/debian wheezy main' && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/debian-extra wheezy main' && \
     apt-get update && \
-    apt-get install -y --force-yes slapd ldap-utils dialog locales fusiondirectory-schema
+    apt-get install -y slapd ldap-utils dialog locales fusiondirectory-schema
 
 RUN /etc/init.d/slapd start && \
     fusiondirectory-insert-schema
