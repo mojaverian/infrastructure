@@ -36,11 +36,16 @@ redis:
         - "127.0.0.1:6379:6379"
 gitlab:
     build: gitlab
-    volumes:
-        - gitlab/config/:/gitlab_config
-        - /home/git/gitlab/public
-        - /home/git/gitlab/tmp/sockets/
     links:
         - openldap
         - postgres
         - redis
+    volumes:
+        - gitlab/config/:/gitlab_config
+        - /home/git/gitlab/public
+        - /home/git/gitlab/tmp/sockets/
+        - /home/git/repositories/
+        - /home/git/gitlab-satellites/
+        - /home/git/.ssh/
+    ports:
+        - "127.0.0.1:2222:22"
