@@ -15,6 +15,8 @@ openldap:
     build: openldap
     ports:
         - "127.0.0.1:389:389"
+    volumes:
+        - /var/lib/ldap/
 fusiondirectory:
     build: fusiondirectory
     links:
@@ -28,10 +30,13 @@ postgres:
     build: postgres
     ports:
         - "127.0.0.1:5432:5432"
+    volumes:
+        - /var/lib/postgresql
 redis:
     build: redis
     volumes:
         - redis/config/:/redis_conf
+        - /var/lib/redis
     ports:
         - "127.0.0.1:6379:6379"
 gitlab:
