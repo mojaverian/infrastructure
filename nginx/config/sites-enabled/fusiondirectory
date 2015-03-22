@@ -1,0 +1,16 @@
+# vim: ft=conf
+
+server {
+    listen 8081 default_server;
+    listen [::]:8081 default_server;
+
+    root /var/www/default;
+
+    index index.html;
+
+    server_name localhost;
+
+    location / {
+        proxy_pass http://fusiondirectory/;
+    }
+}
