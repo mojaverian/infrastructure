@@ -17,10 +17,17 @@ RUN apt-get update && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/debian wheezy main' && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/debian-extra wheezy main' && \
     apt-get update && \
-    apt-get install -y slapd ldap-utils dialog locales fusiondirectory-schema
+    apt-get install -y slapd ldap-utils dialog locales ldap-utils \
+    fusiondirectory-schema fusiondirectory-plugin-mail-schema
 
 RUN /etc/init.d/slapd start && \
-    fusiondirectory-insert-schema
+    fusiondirectory-insert-schema && \
+    fusiondirectory-insert-schema --insert \
+    /etc/ldap/schema/fusiondirectory/mail-fd.schema \
+    /etc/ldap/schema/fusiondirectory/mail-fd-conf.schema \
+    /etc/ldap/schema/fusiondirectory/systems-fd.schema \
+    /etc/ldap/schema/fusiondirectory/service-fd.schema \
+    /etc/ldap/schema/fusiondirectory/systems-fd-conf.schema
 
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     dpkg-reconfigure locales

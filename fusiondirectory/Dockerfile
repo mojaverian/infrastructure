@@ -10,7 +10,7 @@ RUN apt-get update && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/debian wheezy main' && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/debian-extra wheezy main' && \
     apt-get update && \
-    apt-get install -y php-mdb2 fusiondirectory
+    apt-get install -y php-mdb2 fusiondirectory fusiondirectory-plugin-mail
 
 COPY config/fusiondirectory/fusiondirectory.conf /etc/fusiondirectory/fusiondirectory.conf
 
