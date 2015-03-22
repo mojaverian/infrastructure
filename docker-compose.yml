@@ -27,6 +27,6 @@ postgres:
 redis:
     build: redis
     volumes:
-        - redis/config/:/redis_config
+        - redis/config/:/redis_conf
     ports:
         - "127.0.0.1:6379:6379"
