@@ -1,6 +1,8 @@
 How to use
 ----------
 
+This will setup slapd with FusionDirectory and GitLab with Redis, Postgres and LDAP login.
+
     # docker-compose up
 
 Then you need to do some manual configuration steps
@@ -18,6 +20,8 @@ For Gitlab
 
 Don't forget to change the LDAP admin pass, postgres admin pass, the postgres
 git user pass and the gitlab admin pass. They're all set to "changeme".
+
+You'll find GitLab at http://localhost:8080/ and FusionDirectory at http://localhost:8081/fusiondirectory/
 
 ### Credentials
 
