@@ -1,16 +1,24 @@
 # vim: ft=conf
 
 server {
-    listen 8081 default_server;
-    listen [::]:8081 default_server;
+    listen 0.0.0.0:443 ssl;
+    listen [::]:443 ssl;
+
+    ssl on;
+    ssl_certificate /etc/nginx/certs/wildcard.koda.re.pem;
+    ssl_certificate_key /etc/nginx/certs/wildcard.koda.re.key;
+
+    server_name account.koda.re;
 
     root /var/www/default;
 
     index index.html;
 
-    server_name localhost;
-
     location / {
         proxy_pass http://fusiondirectory/;
+    }
+
+    location = / {
+        return 301 /fusiondirectory;
     }
 }

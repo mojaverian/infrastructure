@@ -22,14 +22,14 @@ production: &base
   ## GitLab settings
   gitlab:
     ## Web server settings (note: host is the FQDN, do not include http://)
-    host: localhost
-    port: 8080 # Set to 443 if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
-    https: false # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
+    host: git.koda.re
+    port: 443 # Set to 443 if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
+    https: true # Set to true if using HTTPS, see installation.md#using-https for additional HTTPS configuration details
 
     # Uncommment this line below if your ssh host is different from HTTP/HTTPS one
     # (you'd obviously need to replace ssh.host_example.com with your own host).
     # Otherwise, ssh host will be set to the `host:` value above
-    ssh_host: localhost
+    ssh_host: git.koda.re
 
     # WARNING: See config/application.rb under "Relative url support" for the list of
     # other files that need to be changed for relative url support

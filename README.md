@@ -1,6 +1,20 @@
 How to use
 ----------
 
+If you're developing you will want to add this in /etc/hosts
+
+    127.0.0.1 git.koda.re
+    127.0.0.1 account.koda.re
+
+Then put the actual cert in **nginx/config/certs/** or generate a dev cert.
+
+    # openssl req -x509 -newkey rsa:2048 -days 3650 \
+        -keyout nginx/config/certs/wildcard.koda.re.key \
+        -out nginx/config/certs/wildcard.koda.re.pem
+    # openssl rsa -in nginx/config/certs/wildcard.koda.re.key \
+        -out nginx/config/certs/wildcard.koda.re.key.new
+    # mv nginx/config/certs/wildcard.koda.re.key.new nginx/config/certs/wildcard.koda.re.key
+
 This will setup slapd with FusionDirectory and GitLab with Sidekiq, OpenSSH, Redis, Postgres and LDAP login.
 
     # docker-compose up
@@ -21,7 +35,7 @@ For Gitlab
 Don't forget to change the LDAP admin pass, postgres admin pass, the postgres
 git user pass and the gitlab admin pass. They're all set to "changeme".
 
-You'll find GitLab at http://localhost:8080/ and FusionDirectory at http://localhost:8081/fusiondirectory/
+You'll find GitLab at https://git.koda.re/ and FusionDirectory at https://account.koda.re/
 
 ### Credentials
 

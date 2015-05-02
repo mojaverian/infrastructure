@@ -1,8 +1,29 @@
 # vim: ft=conf
 
+server_names_hash_bucket_size 64;
+
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
+
+    root /var/www/default;
+
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+server {
+    listen 0.0.0.0:443 ssl default_server;
+    listen [::]:443 ssl default_server;
+
+    ssl on;
+    ssl_certificate /etc/nginx/certs/wildcard.koda.re.pem;
+    ssl_certificate_key /etc/nginx/certs/wildcard.koda.re.key;
 
     root /var/www/default;
 

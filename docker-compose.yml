@@ -6,10 +6,10 @@ nginx:
         - gitlab
     ports:
         - "80:80"
-        - "8080:8080"
-        - "8081:8081"
+        - "443:443"
     volumes:
         - nginx/config/sites-enabled:/etc/nginx/sites-enabled
+        - nginx/config/certs:/etc/nginx/certs
         - nginx/data/www:/var/www
 openldap:
     build: openldap
@@ -53,4 +53,4 @@ gitlab:
         - /home/git/gitlab-satellites/
         - /home/git/.ssh/
     ports:
-        - "127.0.0.1:2222:22"
+        - "2222:22"

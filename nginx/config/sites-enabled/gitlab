@@ -5,10 +5,14 @@ upstream gitlab {
 }
 
 server {
-  listen 0.0.0.0:8080 default_server;
-  listen [::]:8080 default_server;
+  listen 0.0.0.0:443 ssl;
+  listen [::]:443 ssl;
 
-  server_name localhost;
+  ssl on;
+  ssl_certificate /etc/nginx/certs/wildcard.koda.re.pem;
+  ssl_certificate_key /etc/nginx/certs/wildcard.koda.re.key;
+
+  server_name git.koda.re;
   server_tokens off;
 
   root /home/git/gitlab/public;
