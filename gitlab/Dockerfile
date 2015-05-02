@@ -15,7 +15,7 @@ RUN apt-get update && \
 RUN adduser --disabled-login --gecos 'GitLab' git
 
 RUN cd /home/git && \
-    sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-8-stable gitlab
+    sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-10-stable gitlab
 
 COPY config/gitlab.yml /home/git/gitlab/config/gitlab.yml
 COPY config/resque.yml /home/git/gitlab/config/resque.yml
@@ -37,7 +37,7 @@ RUN cd /home/git/gitlab && \
     sudo -u git -H git config --global user.email "git@koda.re" && \
     sudo -u git -H git config --global core.autocrlf input && \
     sudo -u git -H bundle install --deployment --without development test mysql aws && \
-    sudo -u git -H bundle exec rake gitlab:shell:install[v2.5.4] REDIS_URL=redis://redis:6379 RAILS_ENV=production && \
+    sudo -u git -H bundle exec rake gitlab:shell:install[v2.6.2] REDIS_URL=redis://redis:6379 RAILS_ENV=production && \
     sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
 
 COPY start.sh /start.sh

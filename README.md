@@ -37,3 +37,15 @@ Postgresql
     host: postgres
     user: admin
     pass: changeme
+
+Upgrading
+---------
+
+How to migrate databases and stuff for new versions...
+
+### Gitlab
+
+    # docker exec -it infrastructure_gitlab_1 /bin/bash
+    # cd /home/git/gitlab
+    # sudo -u git -H bundle exec rake db:migrate RAILS_ENV=production
+
