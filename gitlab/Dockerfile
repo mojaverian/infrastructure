@@ -3,8 +3,15 @@ MAINTAINER Mattias Fliesberg <mattias@fliesberg.email>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PGPASSWORD changeme
+ENV HTTP_PROXY ""
 
-RUN apt-get update && \
+RUN export ALL_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export HTTP_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export HTTPS_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export all_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    export http_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    export https_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    apt-get update && \
     apt-get install -y postgresql-client libpq-dev build-essential \
     zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev \
     libncurses5-dev libffi-dev curl openssh-server redis-server \
@@ -15,14 +22,26 @@ RUN apt-get update && \
 RUN adduser --disabled-login --gecos 'GitLab' git
 
 RUN cd /home/git && \
-    sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-10-stable gitlab
+    export ALL_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export HTTP_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export HTTPS_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export all_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    export http_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    export https_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    sudo -E -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-10-stable gitlab
 
 COPY config/gitlab.yml /home/git/gitlab/config/gitlab.yml
 COPY config/resque.yml /home/git/gitlab/config/resque.yml
 COPY config/database.yml /home/git/gitlab/config/database.yml
 COPY config/unicorn.rb /home/git/gitlab/config/unicorn.rb
 
-RUN cd /home/git/gitlab && \
+RUN export ALL_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export HTTP_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export HTTPS_PROXY="http://fr-proxy.groupinfra.com:3128" && \
+    export all_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    export http_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    export https_proxy="http://fr-proxy.groupinfra.com:3128" && \
+    cd /home/git/gitlab && \
     chown -R git log/ && \
     chown -R git tmp/ && \
     chmod -R u+rwX,go-w log/ && \
